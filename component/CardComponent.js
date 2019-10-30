@@ -129,7 +129,7 @@ export default class CardComponent extends Component {
                         qrIcon = require('../assets/QRicons/facebook.png');
                     }else if(card.name == 'instagram'){
                         textDisplay = 'My Instagram';
-                        qrData = card.data;
+                        qrData = card.data; 
                         qrIcon = require('../assets/QRicons/instagram.png');
                     }else if(card.name == 'linkedin'){
                         textDisplay = 'My LinkedIn';
