@@ -32,6 +32,9 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
       QRScanner,
   },
   {
+    initialRouteName: 'QRcodes'
+  },
+  {
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
           if (routeName == 'Profile'){

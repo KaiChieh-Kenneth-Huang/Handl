@@ -29,9 +29,26 @@ export default class CardComponent extends Component {
         super(props);
         this.state = { cardDataRetrieved: false };
         this.cardData = {};
+        this.key = "contactData";
+        // initial card data when not created
+        this.item = {
+            cards: [
+                    /*{display: true, name: 'phone', data: 
+                        {
+                            firstName: '',
+                            lastName: '',
+                            phoneNumber: '',
+                            emailAddress: ''
+                        }
+                    },
+                    {display: true, name: 'facebook', data: 'https://www.facebook.com/kenneth7882'},
+                    {display: true, name: 'linkedin', data: 'www.linkedin.com/in/kc-kenneth-huang'},*/
+                ]
+            };
     }
 
     componentDidMount(){
+        qrCardsUpToDate = false;
         this.loadData();
     }
 
@@ -41,15 +58,33 @@ export default class CardComponent extends Component {
         }
     }
 
+    async initializeData(){
+        try {
+            await AsyncStorage.setItem(this.key, JSON.stringify(this.item));
+            qrCardsUpToDate = false;          
+            console.log('contact data stored');
+        } catch (error) {
+            // Error saving data
+            console.log('error saving user\'s contact data');
+        }
+    }
+    
+
     async loadData() {
         if(!qrCardsUpToDate){
             try {
                 this.retrieveItem('contactData').then((contactData) => {
-                    this.cardData = contactData;
-                    console.log('number of cards loaded: ' + this.cardData.cards.length);
-                    console.log(this.cardData);
+                    if(contactData != null){
+                        this.cardData = contactData;
+                        console.log('number of cards loaded: ' + this.cardData.cards.length);
+                        console.log(this.cardData);
+                    }else{
+                        this.cardData = this.item;
+                        this.initializeData();
+                    }
                     qrCardsUpToDate = true;
                     this.setState({cardDataRetrieved: true});
+                    
                 });
             }catch(error){
                 console.log("error retrieving contactData from AsyncStorage");
