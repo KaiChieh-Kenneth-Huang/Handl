@@ -10,6 +10,8 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 
 //import QRCodeScanner from 'react-native-qrcode-scanner';
 
+import * as Contacts from 'expo-contacts';
+
 export default class QRScanner extends Component {
 
     state = {
@@ -58,12 +60,14 @@ export default class QRScanner extends Component {
             </View>
         );
     }
-
+    
     handleBarCodeScanned = ({ type, data }) => {
         this.setState({ scanned: true });
         Linking.canOpenURL(data).then((supported) => {
             if (!supported) {
-                alert(`Scanned: ${type} of ${data}`);
+                //Alert.alert(`Scanned: ${type} of ${data}`);
+                console.log(data)
+                this.checkVCard(data);
             } 
             else {
                 return Linking.openURL(data);
@@ -71,4 +75,56 @@ export default class QRScanner extends Component {
         }).catch((err) => console.error('An error occurred', err));
 
     };
+
+    checkVCard = (data) => {
+        //console.log(data.includes("BEGIN"));
+        if ( data.includes("BEGIN:VCARD\nVERSION:3.0\n") ) {
+            //console.log('Vcard found');
+            lastNameIndex = data.indexOf('\nN:',23) + 3; //find index of name variable
+            lastNameIndexEnd = data.indexOf(';',23);
+            firstNameIndex = lastNameIndexEnd + 1;
+            firstNameIndexEnd = data.indexOf('\nFN:',23);
+            lastName = data.substring(lastNameIndex,lastNameIndexEnd);
+            firstName = data.substring(firstNameIndex,firstNameIndexEnd);
+
+            var fullName = firstName + " " + lastName;
+            if (firstNameIndexEnd < 0){
+                fullName = lastName;
+            }
+
+            cellIndex = data.indexOf('\nTEL;CELL:',23) + 10;
+            if (cellIndex < 10){
+                cellIndex = data.indexOf('\nTEL;TYPE=CELL:',23) + 15;
+                if (cellIndex < 15){
+                    cellIndex = data.indexOf('\nTEL:',23) + 5;
+                }
+            }
+            console.log("cellIndex" + cellIndex)
+            cellIndexEnd = data.indexOf('\n',cellIndex);
+            phoneNumber = data.substring(cellIndex,cellIndexEnd);
+
+            var email = "";
+            emailIndex = data.indexOf("\nEMAIL;",23);
+            if (emailIndex > 0){
+                emailIndex = data.indexOf("INTERNET:",emailIndex)+9;
+                emailIndexEnd = data.indexOf("\n",emailIndex);
+                email = data.substring(emailIndex,emailIndexEnd);
+            }
+            /*
+            console.log('\n' + fullName);
+            console.log('\n' + phoneNumber);
+            console.log('\n' + email);
+            */
+
+            console.log(Contacts.getContactsAsync({ fields: [Contacts.Fields.PhoneNumbers] }));
+
+            const newContact = {
+                [Contacts.Fields.name]: fullName,
+            };
+            
+            //const contactId = Contacts.addContactAsync(newContact);
+        }
+    }
+
+
 }
