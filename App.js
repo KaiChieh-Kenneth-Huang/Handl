@@ -26,15 +26,13 @@ import { Ionicons } from '@expo/vector-icons'
 
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
-      Profile,
-      QRcodes,
-      AddContact,
-      QRScanner,
+      Profile: Profile,
+      QRcodes: QRcodes,
+      AddContact: AddContact,
+      QRScanner: QRScanner
   },
   {
-    initialRouteName: 'QRcodes'
-  },
-  {
+      initialRouteName: 'QRcodes',
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
           if (routeName == 'Profile'){
@@ -70,13 +68,13 @@ const HomeStackNavigator = createStackNavigator(
 
 const SettingBottomTabNavigator = createBottomTabNavigator(
   {
-      Setting
+      Setting: Setting
   },
   {
       navigationOptions:({navigation})=>{
           return {
               headerTitle: 'Setting',
-              headerRight: <Text style={{marginRight: 20}}>Save</Text>,
+              headerRight: <Text style={{marginRight: 20}}>SaveSave</Text>,
               headerLeft: <Ionicons 
                               name="md-menu" 
                               onPress={()=>navigation.openDrawer()}
@@ -100,9 +98,8 @@ const AppDrawerNavigator = createDrawerNavigator(
       },
       Setting:{
           screen: SettingStackNavigator
-      },
-  }
-  ,
+      }
+  },
   {
       initialRouteName: 'Home'
   }
@@ -115,8 +112,8 @@ const Navigator = createSwitchNavigator(
     Signup: Signup
   },
   {
-    initialRouteName: 'Login'
-    //initialRouteName: 'Home'
+    //initialRouteName: 'Login'
+    initialRouteName: 'Home'
   }
 );
 
