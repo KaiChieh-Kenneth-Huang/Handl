@@ -37,6 +37,22 @@ export default class Signup extends Component {
             firebase
             .auth()
             .createUserWithEmailAndPassword(this.state.email, this.state.password)
+            .then(function(result) {
+                firebase
+                    .database()
+                    .ref('UserInfo/' + result.user.uid)
+                    .set({
+                    email: result.user.email,
+                    profile_picture: result.user.photoURL,
+                    first_name: result.user.displayName,
+                    last_name: result.user.displayName,
+                    created_at: Date.now()
+                    })
+                    .then((data)=>{
+                    //success callback 
+                    console.log('data ' , data)
+                    });
+            })
             .then(() => this.props.navigation.navigate('Login'))
             .catch(error => this.setState({ errorMessage: 'Error: ' + error.message }));
         }

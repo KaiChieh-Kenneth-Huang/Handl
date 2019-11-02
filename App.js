@@ -74,7 +74,7 @@ const SettingBottomTabNavigator = createBottomTabNavigator(
       navigationOptions:({navigation})=>{
           return {
               headerTitle: 'Setting',
-              headerRight: <Text style={{marginRight: 20}}>SaveSave</Text>,
+              headerRight: <Text style={{marginRight: 20}}>Save</Text>,
               headerLeft: <Ionicons 
                               name="md-menu" 
                               onPress={()=>navigation.openDrawer()}
@@ -112,8 +112,8 @@ const Navigator = createSwitchNavigator(
     Signup: Signup
   },
   {
-    //initialRouteName: 'Login'
-    initialRouteName: 'Home'
+    initialRouteName: 'Login'
+    //initialRouteName: 'Home'
   }
 );
 
@@ -123,6 +123,7 @@ export default class App extends Component {
 
   // ToDo not state!!!
   componentWillMount() {
+    /*
     firebase.initializeApp({
       apiKey: "AIzaSyAwxP8u4W9M2CCsXo1BKAXuwfYAn3EUvck",
       authDomain: "handl-394e9.firebaseapp.com",
@@ -132,6 +133,17 @@ export default class App extends Component {
       messagingSenderId: "514348001827",
       appId: "1:514348001827:web:1511fd95cfd776be031f96"
     });
+    */
+   firebase.initializeApp({
+    apiKey: "AIzaSyARwcdW2qtVmgXFAkevlEJwSidbABcuYMY",
+    authDomain: "handl-e0779.firebaseapp.com",
+    databaseURL: "https://handl-e0779.firebaseio.com",
+    projectId: "handl-e0779",
+    storageBucket: "handl-e0779.appspot.com",
+    messagingSenderId: "703833117547",
+    appId: "1:703833117547:web:0947f7971de110eec7322e",
+    measurementId: "G-4G1W3XKFSM"
+  })
     console.log(ApiKeys)
   }
 
