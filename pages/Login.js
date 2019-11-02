@@ -171,7 +171,7 @@ export default class Login extends Component {
         try {
           const result = await Google.logInAsync({
             androidClientId: '703833117547-b8a3cc54ttg3bvkanblkg5banfbkdd76.apps.googleusercontent.com',
-            // iosClientId: YOUR_CLIENT_ID_HERE,
+            iosClientId: '703833117547-9rin8et8ailspaicg8aie5moqrjnl196.apps.googleusercontent.com',
             scopes: ['profile', 'email'],
           });
       
