@@ -35,7 +35,6 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
           return { 
-            headerTitle: routeName,
             headerLeft: <Ionicons 
                             name="md-person" //this.props.navigation.navigate('Home')
                             onPress={()=>navigation.navigate('Profile')}
@@ -55,22 +54,17 @@ const HomeStackNavigator = createStackNavigator(
 const ProfileBottomTabNavigator = createBottomTabNavigator(
   {
       Profile
-  },
-  {
-      navigationOptions:{
-            headerTitle: 'Profile'
-          }
   }
 )
 
 const ProfileStackNavigator = createStackNavigator(
   {
-    ProfileBottomTabNavigator
+    Profile
   },
   {
-    navigationOptions:{
-        header: 'Profile'
-    }
+      navigationOptions:{
+            headerTitle: Profile
+          }
   }
 )
 
