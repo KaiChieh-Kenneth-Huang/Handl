@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 import 'firebase/firestore'
 import * as Google from 'expo-google-app-auth';
+// import * as MailComposer from 'expo-mail-composer';
 
 import {AppRegistry, 
     Activityindicator, 
@@ -42,7 +43,7 @@ export default class Login extends Component {
 
     logInHandler = () => {
         if (!this.state.email || !this.state.password) {
-          this.state.errorMessage({ errorMessage: 'Error: Empty fields'});
+          this.setState({ errorMessage: 'Email and password can not be empty.'});
         } else {
           firebase
             .auth()
@@ -65,7 +66,7 @@ export default class Login extends Component {
                         console.log('data ' , data)
                       });
                   } else {
-                    firebase 
+                    firebase  
                       .database()
                       .ref('UserInfo/' + result.user.uid)
                       .update({
@@ -140,8 +141,20 @@ export default class Login extends Component {
                       })
                       .then((data)=>{
                         //success callback 
-                        console.log('data ' , data)
+                        console.log('data ' , data) 
                       });
+                    /*
+                    console.log('ready to send email')
+                    MailComposer.composeAsync({
+                          recipients: [result.user.email],
+                          subject: 'Welcomne to Handel',
+                          body: 'Hi, welcome to your personal social hub!'
+                      })
+                      .then(status =>{
+                          console.log('Email status', status)
+                      })
+                     */
+                      
                   } else {
                     firebase 
                       .database()

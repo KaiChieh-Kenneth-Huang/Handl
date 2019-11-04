@@ -16,6 +16,10 @@ import {AppRegistry,
     }from 'react-native';
 import { CheckBox } from 'react-native-elements'
 import { AsyncStorage, Alert } from "react-native";
+import { Ionicons} from '@expo/vector-icons';
+// import { Container, Header, Left, Body, Right, Title } from 'native-base';
+import Constants from 'expo-constants';
+import firebase from 'firebase'
 
 export default class Profile extends Component {
 
@@ -55,6 +59,7 @@ export default class Profile extends Component {
             */
             };
     }
+
   /*  _downloadDataStartup = () =>{
         this._downloadData('kenneth');
     }
@@ -111,6 +116,7 @@ export default class Profile extends Component {
         }
 
     }*/
+
     _loadData = async () => {
         try {
             const retrievedItem =  await AsyncStorage.getItem(this.key);
@@ -266,6 +272,11 @@ export default class Profile extends Component {
         }
         Alert.alert("Profile saved!");
     }
+
+    storeAndNavigate = () => {
+        this.props.navigation.navigate('QRcodes')
+        this._storeData()
+    }
     
     handleChange = key => val => {
         console.log(key)
@@ -304,10 +315,19 @@ export default class Profile extends Component {
                     <Switch onValueChange={() => this.setState({switchLIValue: !this.state.switchLIValue})} value = {this.state.switchLIValue} />
                 </View>
                 <View style={styles.btnContainer}>
-                    < TouchableOpacity style={styles.userBtn} onPress={this._storeData}>
+                    < TouchableOpacity style={styles.userBtn} onPress={ this.storeAndNavigate}>
                             <Text style={styles.btnText} >Save</Text>
                     </TouchableOpacity>
                 </View>
+                <TouchableOpacity>
+                    <Button 
+                        title="Sign out"
+                        onPress={() => {
+                            firebase.auth().signOut()
+                            this.props.navigation.navigate('Login')
+                        }}
+                    />
+                </TouchableOpacity>
                 {/*<View style={styles.btnContainer}>
                     < TouchableOpacity style={styles.userBtn} onPress={this._downloadData}>
                             <Text style={styles.btnText} >Download Data</Text>
@@ -353,4 +373,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: 'white'
     },
+    statusBar: {
+        backgroundColor: "#330455",
+        height: Constants.statusBarHeight,
+    }
 });
