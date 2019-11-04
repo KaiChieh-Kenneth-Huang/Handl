@@ -2,6 +2,7 @@ import React, { Component } from 'react'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 import 'firebase/firestore'
+// import * as MailComposer from 'expo-mail-composer';
 
 import {AppRegistry, 
     Activityindicator, 
@@ -55,6 +56,16 @@ export default class Signup extends Component {
             })
             .then(() => this.props.navigation.navigate('Login'))
             .catch(error => this.setState({ errorMessage: 'Error: ' + error.message }));
+            /*
+            MailComposer.composeAsync({
+                  recipients: [this.state.email],
+                  subject: 'Welcomne to Handel',
+                  body: 'Hi, welcome to your personal social hub!'
+              })
+              .then(status =>{
+                  console.log('Email status', status)
+              })
+            */
         }
     }
     
