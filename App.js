@@ -26,9 +26,33 @@ import { Ionicons} from '@expo/vector-icons'
 
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
-      QRcodes: QRcodes,
-      AddContact: AddContact,
-      QRScanner: QRScanner
+      QRcodes: {
+        screen: QRcodes,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
+      AddContact: {
+        screen: AddContact,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-keypad${focused ? '' : ''}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
+      QRScanner: {
+        screen: QRScanner,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-qr-scanner${focused ? '' : ''}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
   },
   {
       initialRouteName: 'QRcodes',
