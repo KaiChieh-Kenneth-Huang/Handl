@@ -287,7 +287,7 @@ export default class Profile extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <TextInput placeholder="First Name" value={this.state.firstName} style={styles.input} onChangeText={(firstName) => this.setState({firstName})}/>
                 <TextInput placeholder="Last Name" value={this.state.lastName} style={styles.input} onChangeText={(lastName) => this.setState({lastName})}/>
                 <TextInput placeholder="Phone Number" value={this.state.phoneNumber} style={styles.input} onChangeText={(phoneNumber) => this.setState({phoneNumber})}/>
@@ -347,11 +347,9 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: 10,
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#ccc',
-        width: '100%',
-        marginBottom: 0,
-        borderRadius: 5
+        width: '100%'
     },
     userBtn: {
         backgroundColor: "#5B2C6F",
