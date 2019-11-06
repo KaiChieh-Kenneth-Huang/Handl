@@ -97,6 +97,8 @@ export default class Login extends Component {
         })
     }
 
+    
+
     isUserEqual = (googleUser, firebaseUser) => {
         if (firebaseUser) {
           var providerData = firebaseUser.providerData;
