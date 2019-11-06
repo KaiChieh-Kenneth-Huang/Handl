@@ -26,16 +26,39 @@ import { Ionicons} from '@expo/vector-icons'
 
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
-      QRcodes: QRcodes,
-      AddContact: AddContact,
-      QRScanner: QRScanner
+      QRcodes: {
+        screen: QRcodes,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
+      AddContact: {
+        screen: AddContact,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-keypad${focused ? '' : ''}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
+      QRScanner: {
+        screen: QRScanner,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-qr-scanner${focused ? '' : ''}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
   },
   {
       initialRouteName: 'QRcodes',
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
           return { 
-            headerTitle: routeName,
             headerLeft: <Ionicons 
                             name="md-person" //this.props.navigation.navigate('Home')
                             onPress={()=>navigation.navigate('Profile')}
@@ -55,22 +78,17 @@ const HomeStackNavigator = createStackNavigator(
 const ProfileBottomTabNavigator = createBottomTabNavigator(
   {
       Profile
-  },
-  {
-      navigationOptions:{
-            headerTitle: 'Profile'
-          }
   }
 )
 
 const ProfileStackNavigator = createStackNavigator(
   {
-    ProfileBottomTabNavigator
+    Profile
   },
   {
-    navigationOptions:{
-        header: 'Profile'
-    }
+      navigationOptions:{
+            headerTitle: Profile
+          }
   }
 )
 
