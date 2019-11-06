@@ -16,6 +16,14 @@ import {AppRegistry,
     }from 'react-native';
 import { CheckBox } from 'react-native-elements'
 import { AsyncStorage, Alert } from "react-native";
+import { Ionicons} from '@expo/vector-icons';
+// import { Container, Header, Left, Body, Right, Title } from 'native-base';
+import Constants from 'expo-constants';
+import firebase from 'firebase'
+import * as Facebook from 'expo-facebook';
+import * as WebBrowser from 'expo-web-browser';
+
+
 
 export default class Profile extends Component {
 
@@ -55,6 +63,7 @@ export default class Profile extends Component {
             */
             };
     }
+
   /*  _downloadDataStartup = () =>{
         this._downloadData('kenneth');
     }
@@ -111,6 +120,7 @@ export default class Profile extends Component {
         }
 
     }*/
+
     _loadData = async () => {
         try {
             const retrievedItem =  await AsyncStorage.getItem(this.key);
@@ -142,6 +152,65 @@ export default class Profile extends Component {
             }
         }
     }
+
+    _fbapi = async () => {
+        
+            try {
+              const {
+                type,
+                token,
+                expires,
+                permissions,
+                declinedPermissions,
+              } = await Facebook.logInWithReadPermissionsAsync('532357667602472', {
+                permissions: ['public_profile','user_link'],
+              });
+              if (type === 'success') {
+                 
+                // Get the user's name using Facebook's Graph API
+                const response = await fetch(`https://graph.facebook.com/me?fields=link,name&access_token=${token}`);
+                fbInfo = await response.json()
+                Alert.alert(`Logged in as ${fbInfo.name}!`);
+                this.setState({facebookURL:fbInfo.link})
+              } else {
+                // type === 'cancel'
+              }
+            } catch ({ message }) {
+              alert(`Facebook Login Error: ${message}`);
+            }
+          
+          
+    }
+
+    _instaapi = async () => {
+        
+        try {
+          const {
+            type,
+            token,
+            expires,
+            permissions,
+            declinedPermissions,
+          } = await Facebook.logInWithReadPermissionsAsync('532357667602472', {
+            permissions: ['public_profile','user_link'],
+          });
+          if (type === 'success') {
+             
+            // Get the user's name using Facebook's Graph API
+            const response = await fetch(`https://graph.facebook.com/me?fields=link&access_token=${token}`);
+            fbInfo = await response.json()
+            Alert.alert('Logged in!', `Hi ${fbInfo.link}!`);
+            this.setState({facebookURL:fbInfo.link})
+          } else {
+            // type === 'cancel'
+          }
+        } catch ({ message }) {
+          alert(`Facebook Login Error: ${message}`);
+        }
+      
+      
+}
+
     _downloadData = async () => {
         try {
             let result = await fetch('https://gthandl.herokuapp.com/users/user2');
@@ -266,6 +335,11 @@ export default class Profile extends Component {
         }
         Alert.alert("Profile saved!");
     }
+
+    storeAndNavigate = () => {
+        this.props.navigation.navigate('QRcodes')
+        this._storeData()
+    }
     
     handleChange = key => val => {
         console.log(key)
@@ -276,7 +350,7 @@ export default class Profile extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <TextInput placeholder="First Name" value={this.state.firstName} style={styles.input} onChangeText={(firstName) => this.setState({firstName})}/>
                 <TextInput placeholder="Last Name" value={this.state.lastName} style={styles.input} onChangeText={(lastName) => this.setState({lastName})}/>
                 <TextInput placeholder="Phone Number" value={this.state.phoneNumber} style={styles.input} onChangeText={(phoneNumber) => this.setState({phoneNumber})}/>
@@ -289,7 +363,16 @@ export default class Profile extends Component {
                 <TextInput placeholder="https://www.facebook.com/YOUR_ACCOUNT" value={this.state.facebookURL} style={styles.input} onChangeText={(facebookURL) => this.setState({facebookURL})}/>
                 <View style={styles.btnContainer}>
                     <Text>Facebook</Text>
-                    <Switch onValueChange={() => this.setState({switchFBValue: !this.state.switchFBValue})} value = {this.state.switchFBValue} />
+                    <Switch onValueChange = {() => 
+                        {   
+                            this.setState({switchFBValue: !this.state.switchFBValue})
+                            if(this.state.switchFBValue == false){
+                                this._fbapi()
+                            }
+                        }
+                             
+                        
+                            }value = {this.state.switchFBValue} />
                 </View>
 
                 <TextInput placeholder="https://www.instagram.com/YOUR_ACCOUNT" value={this.state.instagramURL} style={styles.input} onChangeText={(instagramURL) => this.setState({instagramURL})}/>
@@ -304,10 +387,26 @@ export default class Profile extends Component {
                     <Switch onValueChange={() => this.setState({switchLIValue: !this.state.switchLIValue})} value = {this.state.switchLIValue} />
                 </View>
                 <View style={styles.btnContainer}>
-                    < TouchableOpacity style={styles.userBtn} onPress={this._storeData}>
+                    < TouchableOpacity style={styles.userBtn} onPress={ this.storeAndNavigate}>
                             <Text style={styles.btnText} >Save</Text>
                     </TouchableOpacity>
                 </View>
+                <TouchableOpacity>
+                    <Button 
+                        title="Sign out"
+                        onPress={() => {
+                            firebase.auth().signOut()
+                            this.props.navigation.navigate('Login')
+                        }}
+                    />
+                   
+
+                </TouchableOpacity>
+               
+                
+
+
+
                 {/*<View style={styles.btnContainer}>
                     < TouchableOpacity style={styles.userBtn} onPress={this._downloadData}>
                             <Text style={styles.btnText} >Download Data</Text>
@@ -327,11 +426,9 @@ const styles = StyleSheet.create({
     },
     input: {
         padding: 10,
-        borderWidth: 1,
+        borderBottomWidth: 1,
         borderColor: '#ccc',
-        width: '100%',
-        marginBottom: 0,
-        borderRadius: 5
+        width: '100%'
     },
     userBtn: {
         backgroundColor: "#5B2C6F",
@@ -353,4 +450,8 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: 'white'
     },
+    statusBar: {
+        backgroundColor: "#330455",
+        height: Constants.statusBarHeight,
+    }
 });

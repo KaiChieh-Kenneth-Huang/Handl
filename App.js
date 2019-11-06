@@ -22,101 +22,88 @@ import QRcodes from './component/CardComponent'
 import Profile from './component/profile'
 import AddContact from './component/addContact'
 import QRScanner from './component/QRScanner'
-import { Ionicons } from '@expo/vector-icons'
+import { Ionicons} from '@expo/vector-icons'
 
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
-      Profile,
-      QRcodes,
-      AddContact,
-      QRScanner,
+      QRcodes: {
+        screen: QRcodes,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-information-circle${focused ? '' : '-outline'}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
+      AddContact: {
+        screen: AddContact,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-keypad${focused ? '' : ''}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
+      QRScanner: {
+        screen: QRScanner,
+        navigationOptions: {
+          tabBarIcon: ({ focused, tintColor }) => {
+              const iconName = `ios-qr-scanner${focused ? '' : ''}`;
+              return <Ionicons name={iconName} size={25} color={tintColor} />;
+          },
+        },
+      },
   },
   {
-    initialRouteName: 'QRcodes'
-  },
-  {
+      initialRouteName: 'QRcodes',
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
-          if (routeName == 'Profile'){
-            return {
-                headerTitle: routeName,
-                headerRight: <Text style={{marginRight: 20}}>Save</Text>,
-                headerLeft: <Ionicons 
-                                name="md-menu" 
-                                onPress={()=>navigation.openDrawer()}
-                                size={20} 
-                                style={{marginLeft: 15}}/>
-            }
-          }
-          else{
-            return {
-              headerTitle: routeName,
-              headerLeft: <Ionicons 
-                              name="md-menu" 
-                              onPress={()=>navigation.openDrawer()}
-                              size={20} 
-                              style={{marginLeft: 15}}/>
-            }
+          return { 
+            headerLeft: <Ionicons 
+                            name="md-person" //this.props.navigation.navigate('Home')
+                            onPress={()=>navigation.navigate('Profile')}
+                            size={20} 
+                            style={{marginLeft: 15}}/>
           }
       }
   }
 )
 
 const HomeStackNavigator = createStackNavigator(
-  {
+  { 
       HomeBottomTabNavigator: HomeBottomTabNavigator
   }
 )
 
-const SettingBottomTabNavigator = createBottomTabNavigator(
+const ProfileBottomTabNavigator = createBottomTabNavigator(
   {
-      Setting
+      Profile
+  }
+)
+
+const ProfileStackNavigator = createStackNavigator(
+  {
+    Profile
   },
   {
-      navigationOptions:({navigation})=>{
-          return {
-              headerTitle: 'Setting',
-              headerRight: <Text style={{marginRight: 20}}>Save</Text>,
-              headerLeft: <Ionicons 
-                              name="md-menu" 
-                              onPress={()=>navigation.openDrawer()}
-                              size={30} 
-                              style={{marginLeft: 15}}/>
+      navigationOptions:{
+            headerTitle: Profile
           }
-      }
   }
 )
 
-const SettingStackNavigator = createStackNavigator(
-  {
-      SettingBottomTabNavigator: SettingBottomTabNavigator
-  }
-)
-
-const AppDrawerNavigator = createDrawerNavigator(
-  {
-      Home:{
-          screen: HomeStackNavigator
-      },
-      Setting:{
-          screen: SettingStackNavigator
-      },
-  }
-  ,
-  {
-      initialRouteName: 'Home'
-  }
-)
 const Navigator = createSwitchNavigator(
   {
     Login: Login,
-    Home: {screen: AppDrawerNavigator},
+    //Home: {screen: AppDrawerNavigator},
+    Home: {screen: HomeStackNavigator},
     Intro: Intro,
-    Signup: Signup
+    Signup: Signup,
+    Profile: {screen: ProfileStackNavigator},
   },
   {
-    initialRouteName: 'Login'
     //initialRouteName: 'Home'
+    initialRouteName: 'Login'
   }
 );
 
@@ -126,15 +113,16 @@ export default class App extends Component {
 
   // ToDo not state!!!
   componentWillMount() {
-    firebase.initializeApp({
-      apiKey: "AIzaSyAwxP8u4W9M2CCsXo1BKAXuwfYAn3EUvck",
-      authDomain: "handl-394e9.firebaseapp.com",
-      databaseURL: "https://handl-394e9.firebaseio.com",
-      projectId: "handl-394e9",
-      storageBucket: "handl-394e9.appspot.com",
-      messagingSenderId: "514348001827",
-      appId: "1:514348001827:web:1511fd95cfd776be031f96"
-    });
+   firebase.initializeApp({
+    apiKey: "AIzaSyARwcdW2qtVmgXFAkevlEJwSidbABcuYMY",
+    authDomain: "handl-e0779.firebaseapp.com",
+    databaseURL: "https://handl-e0779.firebaseio.com",
+    projectId: "handl-e0779",
+    storageBucket: "handl-e0779.appspot.com",
+    messagingSenderId: "703833117547",
+    appId: "1:703833117547:web:0947f7971de110eec7322e",
+    measurementId: "G-4G1W3XKFSM"
+  })
     console.log(ApiKeys)
   }
 
