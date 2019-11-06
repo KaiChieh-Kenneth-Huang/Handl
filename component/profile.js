@@ -20,6 +20,10 @@ import { Ionicons} from '@expo/vector-icons';
 // import { Container, Header, Left, Body, Right, Title } from 'native-base';
 import Constants from 'expo-constants';
 import firebase from 'firebase'
+import * as Facebook from 'expo-facebook';
+import * as WebBrowser from 'expo-web-browser';
+
+
 
 export default class Profile extends Component {
 
@@ -148,6 +152,65 @@ export default class Profile extends Component {
             }
         }
     }
+
+    _fbapi = async () => {
+        
+            try {
+              const {
+                type,
+                token,
+                expires,
+                permissions,
+                declinedPermissions,
+              } = await Facebook.logInWithReadPermissionsAsync('532357667602472', {
+                permissions: ['public_profile','user_link'],
+              });
+              if (type === 'success') {
+                 
+                // Get the user's name using Facebook's Graph API
+                const response = await fetch(`https://graph.facebook.com/me?fields=link,name&access_token=${token}`);
+                fbInfo = await response.json()
+                Alert.alert(`Logged in as ${fbInfo.name}!`);
+                this.setState({facebookURL:fbInfo.link})
+              } else {
+                // type === 'cancel'
+              }
+            } catch ({ message }) {
+              alert(`Facebook Login Error: ${message}`);
+            }
+          
+          
+    }
+
+    _instaapi = async () => {
+        
+        try {
+          const {
+            type,
+            token,
+            expires,
+            permissions,
+            declinedPermissions,
+          } = await Facebook.logInWithReadPermissionsAsync('532357667602472', {
+            permissions: ['public_profile','user_link'],
+          });
+          if (type === 'success') {
+             
+            // Get the user's name using Facebook's Graph API
+            const response = await fetch(`https://graph.facebook.com/me?fields=link&access_token=${token}`);
+            fbInfo = await response.json()
+            Alert.alert('Logged in!', `Hi ${fbInfo.link}!`);
+            this.setState({facebookURL:fbInfo.link})
+          } else {
+            // type === 'cancel'
+          }
+        } catch ({ message }) {
+          alert(`Facebook Login Error: ${message}`);
+        }
+      
+      
+}
+
     _downloadData = async () => {
         try {
             let result = await fetch('https://gthandl.herokuapp.com/users/user2');
@@ -300,7 +363,16 @@ export default class Profile extends Component {
                 <TextInput placeholder="https://www.facebook.com/YOUR_ACCOUNT" value={this.state.facebookURL} style={styles.input} onChangeText={(facebookURL) => this.setState({facebookURL})}/>
                 <View style={styles.btnContainer}>
                     <Text>Facebook</Text>
-                    <Switch onValueChange={() => this.setState({switchFBValue: !this.state.switchFBValue})} value = {this.state.switchFBValue} />
+                    <Switch onValueChange = {() => 
+                        {   
+                            this.setState({switchFBValue: !this.state.switchFBValue})
+                            if(this.state.switchFBValue == false){
+                                this._fbapi()
+                            }
+                        }
+                             
+                        
+                            }value = {this.state.switchFBValue} />
                 </View>
 
                 <TextInput placeholder="https://www.instagram.com/YOUR_ACCOUNT" value={this.state.instagramURL} style={styles.input} onChangeText={(instagramURL) => this.setState({instagramURL})}/>
@@ -327,7 +399,14 @@ export default class Profile extends Component {
                             this.props.navigation.navigate('Login')
                         }}
                     />
+                   
+
                 </TouchableOpacity>
+               
+                
+
+
+
                 {/*<View style={styles.btnContainer}>
                     < TouchableOpacity style={styles.userBtn} onPress={this._downloadData}>
                             <Text style={styles.btnText} >Download Data</Text>
