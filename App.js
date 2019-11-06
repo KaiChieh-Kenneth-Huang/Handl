@@ -104,6 +104,8 @@ const ProfileStackNavigator = createStackNavigator(
   }
 )
 
+
+
 const Navigator = createSwitchNavigator(
   {
     Login: Login,
