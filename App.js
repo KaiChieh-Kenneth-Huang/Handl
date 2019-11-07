@@ -24,6 +24,8 @@ import AddContact from './component/addContact'
 import QRScanner from './component/QRScanner'
 import { Ionicons} from '@expo/vector-icons'
 
+import TabBar from "./component/TabBar";
+
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
       QRcodes: {
@@ -64,6 +66,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
   },
   {
       initialRouteName: 'QRcodes',
+      tabBarComponent: TabBar,
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
           return { 
@@ -77,7 +80,14 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
             }
           }
       },
-      tabBarOptions: { showLabel: false }
+      tabBarOptions: { 
+        style: {
+          height: 55,
+          backgroundColor: '#330455',
+        },
+        showLabel: false,
+        activeBackgroundColor: '#FFFFFF'
+      }
   }
 )
 

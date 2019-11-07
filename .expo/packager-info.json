@@ -1,9 +1,9 @@
 {
   "devToolsPort": 19002,
-  "expoServerPort": 19000,
-  "packagerPort": 19001,
-  "packagerPid": 33976,
-  "expoServerNgrokUrl": "https://v2-ktd.anonymous.handl.exp.direct",
-  "packagerNgrokUrl": "https://packager.v2-ktd.anonymous.handl.exp.direct",
-  "ngrokPid": 33986
+  "expoServerPort": null,
+  "packagerPort": null,
+  "packagerPid": null,
+  "expoServerNgrokUrl": null,
+  "packagerNgrokUrl": null,
+  "ngrokPid": null
 }
