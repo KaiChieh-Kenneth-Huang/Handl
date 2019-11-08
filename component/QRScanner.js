@@ -10,7 +10,6 @@ import { BarCodeScanner } from 'expo-barcode-scanner';
 
 //import QRCodeScanner from 'react-native-qrcode-scanner';
 
-import * as Contacts from 'expo-contacts';
 
 export default class QRScanner extends Component {
 
@@ -116,11 +115,6 @@ export default class QRScanner extends Component {
             console.log('\n' + email);
             */
 
-            console.log(Contacts.getContactsAsync({ fields: [Contacts.Fields.PhoneNumbers] }));
-
-            const newContact = {
-                [Contacts.Fields.name]: fullName,
-            };
             
             //const contactId = Contacts.addContactAsync(newContact);
         }
