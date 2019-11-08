@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import {StyleSheet, Text, View, Button, TextInput,TouchableOpacity } from 'react-native';
+import {StyleSheet, Text, View, Button, TextInput,TouchableOpacity, Image } from 'react-native';
 // import Fetch from './component/Fetch';
 // import Buy from './component/Buy';
 import { createAppContainer, createSwitchNavigator } from 'react-navigation';
@@ -24,47 +24,69 @@ import AddContact from './component/addContact'
 import QRScanner from './component/QRScanner'
 import { Ionicons} from '@expo/vector-icons'
 
+import TabBar from "./component/TabBar";
+
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
       QRcodes: {
         screen: QRcodes,
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor }) => {
-              const iconName = `ios-information-circle${focused ? '' : '-outline'}`;
-              return <Ionicons name={iconName} size={25} color={tintColor} />;
-          },
+              const color = focused ? '#330455' : tintColor
+              s = require('./assets/ICONS-1/QR_white.png');
+              return <Image source={s} style={{ height: 40, width: 40, tintColor: color}}/>;
+          }
         },
       },
       AddContact: {
         screen: AddContact,
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor }) => {
+              /*
               const iconName = `ios-keypad${focused ? '' : ''}`;
+              tintColor = focused ? '#330455' : tintColor 
               return <Ionicons name={iconName} size={25} color={tintColor} />;
-          },
+              */
+              s = require('./assets/ICONS-1/keypad.png');
+              tintColor = focused ? '#330455' : tintColor
+              return <Image source={s} style={{ height: 40, width: 40, tintColor: tintColor}}/>;
+          }
         },
       },
       QRScanner: {
         screen: QRScanner,
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor }) => {
-              const iconName = `ios-qr-scanner${focused ? '' : ''}`;
-              return <Ionicons name={iconName} size={25} color={tintColor} />;
-          },
+              s = require('./assets/ICONS-1/QR_scanner.png');
+              tintColor = focused ? '#330455' : tintColor
+              return <Image source={s} style={{ height: 40, width: 40, tintColor: tintColor}}/>;
+          }
         },
       },
   },
   {
       initialRouteName: 'QRcodes',
+      tabBarComponent: TabBar,
       navigationOptions:({navigation})=>{
           const {routeName} = navigation.state.routes[navigation.state.index] 
           return { 
-            headerLeft: <Ionicons 
-                            name="md-person" //this.props.navigation.navigate('Home')
-                            onPress={()=>navigation.navigate('Profile')}
-                            size={20} 
-                            style={{marginLeft: 15}}/>
+            
+            headerLeft: () => {
+              s = require('./assets/ICONS-1/profile.png');
+              return (<TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+                <Image source={s}/>
+                </TouchableOpacity> 
+              )
+            }
           }
+      },
+      tabBarOptions: { 
+        style: {
+          height: 55,
+          backgroundColor: '#330455',
+        },
+        showLabel: false,
+        activeBackgroundColor: '#FFFFFF'
       }
   }
 )
@@ -91,6 +113,8 @@ const ProfileStackNavigator = createStackNavigator(
           }
   }
 )
+
+
 
 const Navigator = createSwitchNavigator(
   {
