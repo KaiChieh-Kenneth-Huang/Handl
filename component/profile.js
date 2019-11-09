@@ -66,7 +66,6 @@ export default class Profile extends Component {
             switchCUValue: false,
 
             accordianBottomRadius: 5,
-            accordianColor: '#eee',
             text: '',
         };
         this.key = 'contactData';
