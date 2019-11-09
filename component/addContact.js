@@ -147,8 +147,8 @@ export default class AddContact extends Component {
         //console.log(Contacts.PhoneNumber.digits);
         const contact = {
             [Contacts.Fields.FirstName]: this.state.firstName,
-            [Contacts.Fields.lastName]: this.state.lastName, 
-            [Contacts.Fields.phoneNumber]: [{ label : 'mobile', digits: this.state.phoneNumber}]
+            [Contacts.Fields.LastName]: this.state.lastName, 
+            [Contacts.Fields.PhoneNumbers]: [{ label : 'mobile', number: this.state.phoneNumber}]
         };
 
         try{

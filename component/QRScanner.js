@@ -6,6 +6,8 @@ import Constants from 'expo-constants';
 
 import * as Permissions from 'expo-permissions';
 
+import * as Contacts from 'expo-contacts';
+
 import { BarCodeScanner } from 'expo-barcode-scanner';
 
 //import QRCodeScanner from 'react-native-qrcode-scanner';
@@ -114,8 +116,28 @@ export default class QRScanner extends Component {
             console.log('\n' + phoneNumber);
             console.log('\n' + email);
             */
+                    //console.log(Contacts.PhoneNumber.digits);
+            const contact = {
+                [Contacts.Fields.FirstName]: firstName,
+                [Contacts.Fields.LastName]: lastName, 
+                [Contacts.Fields.PhoneNumbers]: [{ label : 'mobile', number: phoneNumber}]
+            };
 
-            
+            try{
+                const contactId = Contacts.addContactAsync(contact);
+                console.log('contact-ID:'+contactId);
+                if(contactId){
+                    alert('Contact ' + firstName + ' ' + lastName + ' Saved.')
+                }
+                else{
+                    alert('Contact not saved.')
+                }
+            }
+            catch(err){
+                alert('Contact not Saved')
+            }
+
+                
             //const contactId = Contacts.addContactAsync(newContact);
         }
     }
