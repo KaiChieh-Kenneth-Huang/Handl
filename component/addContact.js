@@ -137,17 +137,35 @@ export default class AddContact extends Component {
         message += '\n' + 'sent from the Handl app'
 
 
-        /*IDK how to set this up
+        //IDK how to set this up
+        /*
         const phoneNum = {
-            [Contacts.PhoneNumber.digits]: this.state.phoneNumber
+            Contacts.PhoneNumber.number = this.state.phoneNumber
         };
         */
 
+        //console.log(Contacts.PhoneNumber.digits);
         const contact = {
             [Contacts.Fields.FirstName]: this.state.firstName,
-            [Contacts.Fields.lastName]: this.state.lastName,
-            //[Contacts.Fields.phoneNumbers]: phoneNum
+            [Contacts.Fields.lastName]: this.state.lastName, 
+            [Contacts.Fields.phoneNumber]: [{ label : 'mobile', digits: this.state.phoneNumber}]
         };
+
+        try{
+            const contactId = Contacts.addContactAsync(contact);
+            console.log('contact-ID:'+contactId);
+            if(contactId){
+                alert('Contact Saved.')
+            }
+            else{
+                alert('Contact not saved.')
+            }
+        }
+        catch(err){
+            alert('Contact not Saved')
+        }
+
+        
         if (this.state.checked){
             const { result } = SMS.sendSMSAsync(this.state.phoneNumber, message);
             console.log(result);
