@@ -151,7 +151,7 @@ export default class CardComponent extends Component {
                                     size = {SCREEN_WIDTH*0.6}
                                 />
                             </View>
-                            <TouchableOpacity   style={{width: SCREEN_WIDTH*0.2, height: SCREEN_WIDTH*0.2, marginTop: -SCREEN_WIDTH*0.08, zIndex: 2}}
+                            <TouchableOpacity   style={{elevation: 2, width: SCREEN_WIDTH*0.2, height: SCREEN_WIDTH*0.2, marginTop: -SCREEN_WIDTH*0.08, zIndex: 2}}
                                                 onPress={() => {if(card.name != 'phone') Linking.openURL(qrData);}}>
                                 <Image  source={qrIcon} 
                                         style={{width: '100%', height: '100%', zIndex: 2}}
@@ -208,7 +208,8 @@ const styles = StyleSheet.create({
         shadowOpacity: 0.3,
         shadowRadius: 10,
         shadowOffset: {width: 0,height: 8},
-        borderRadius: 15
+        borderRadius: 15,
+        elevation: 2
     },
     scroll2:{
         backgroundColor: '#5f9299',

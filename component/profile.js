@@ -158,11 +158,11 @@ export default class Profile extends Component {
         for (let index = 0; index < this.item.cards.length; index++) {
             const element = this.item.cards[index];
             if(element.name == 'phone'){
-                this.setState({switchPHValue: element.display});
+                /*this.setState({switchPHValue: element.display});
                 this.setState({firstName: element.data.firstName});
                 this.setState({lastName: element.data.lastName});
                 this.setState({phoneNumber: element.data.phoneNumber});
-                this.setState({emailAddress: element.data.emailAddress});
+                this.setState({emailAddress: element.data.emailAddress});*/
             }else if(element.name == 'facebook'){
                 this.setState({switchFBValue: element.display});
                 this.setState({facebookURL: element.data});
@@ -251,11 +251,11 @@ export default class Profile extends Component {
         for (let index = 0; index < this.item.cards.length; index++) {
             const element = this.item.cards[index];
             if(element.name == 'phone'){
-                this.setState({switchPHValue: element.display});
+                /*this.setState({switchPHValue: element.display});
                 this.setState({firstName: element.data.firstName});
                 this.setState({lastName: element.data.lastName});
                 this.setState({phoneNumber: element.data.phoneNumber});
-                this.setState({emailAddress: element.data.emailAddress});
+                this.setState({emailAddress: element.data.emailAddress});*/
             }else if(element.name == 'facebook'){
                 this.setState({switchFBValue: element.display});
                 this.setState({facebookURL: element.data});
