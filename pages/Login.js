@@ -233,7 +233,7 @@ export default class Login extends Component {
                 </View>
                 <View>
                     < TouchableOpacity style={styles.signInWithGooglerBtn}>
-                        <Text onPress={() => this.signInWithGoogleAsync()}>Sign In With Google</Text>
+                        <Button title="Sign In With Google" onPress={() => this.signInWithGoogleAsync()}/>
                     </TouchableOpacity>
                 </View>
             </View>

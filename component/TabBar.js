@@ -24,7 +24,8 @@ const S = StyleSheet.create({
     height: 52,
     backgroundColor: "#ffffff",
     borderBottomLeftRadius: 26,
-    borderBottomRightRadius: 26
+    borderBottomRightRadius: 26,
+    borderTopLeftRadius: -26,
   },
   scaler: { flex: 0.9, alignItems: "center", justifyContent: "center" }
 });
