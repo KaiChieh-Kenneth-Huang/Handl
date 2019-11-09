@@ -36,31 +36,37 @@ export default class Profile extends Component {
             lastName: '',
             phoneNumber: '',
             emailAddress: '',
+
+            checked: true,
+
             facebookURL: '',
             instagramURL: '',
             linkedinURL: '',
-            checked: true,
+            customURL: '',
+
             accordionFBopen: false,
             accordionINopen: false,
             accordionLIopen: false,
+            accordionCUopen: false,
 
             accordionFBcolor: '#eee',
             accordionINcolor: '#eee',
             accordionLIcolor: '#eee',
+            accordionCUcolor: '#eee',
 
             accordionTextFBcolor: '#aaa',
             accordionTextINcolor: '#aaa',
             accordionTextLIcolor: '#aaa',
-            
-            accordianBottomRadius: 5,
-            accordianColor: '#eee',
+            accordionTextCUcolor: '#aaa',
 
-            switchPHValue: false,
+            switchPHValue: true,
             switchFBValue: false,
             switchINValue: false,
             switchLIValue: false,
+            switchCUValue: false,
+
+            accordianBottomRadius: 5,
             text: '',
-            
         };
         this.key = 'contactData';
         this.item = {
@@ -166,6 +172,9 @@ export default class Profile extends Component {
             }else if(element.name == 'linkedin'){
                 this.setState({switchLIValue: element.display});
                 this.setState({linkedinURL: element.data});
+            }else if(element.name == 'custom'){
+                this.setState({switchCUValue: element.display});
+                this.setState({customURL: element.data});
             }
         }
     }
@@ -256,6 +265,9 @@ export default class Profile extends Component {
             }else if(element.name == 'linkedin'){
                 this.setState({switchLIValue: element.display});
                 this.setState({linkedinURL: element.data});
+            }else if(element.name == 'custom'){
+                this.setState({switchCUValue: element.display});
+                this.setState({customURL: element.data});
             }
         }
 
@@ -287,6 +299,10 @@ export default class Profile extends Component {
         if(this.state.linkedinURL.substring(0,4) != 'http' && this.state.switchLIValue == true){
             errMessage += "LinkedIn URL must start with https://\n";
             this.setState({switchLIValue: false});
+        }
+        if(this.state.customURL.substring(0,4) != 'http' && this.state.switchCUValue == true){
+            errMessage += "Custom URL must start with https://\n";
+            this.setState({switchCUValue: false});
         }
         if(errMessage != ''){
             Alert.alert("Profile Not Saved", errMessage);
@@ -323,6 +339,11 @@ export default class Profile extends Component {
             this.item.cards.push({display: true, name: 'linkedin', data: this.state.linkedinURL});
         }else{
             this.item.cards.push({display: false, name: 'linkedin', data: this.state.linkedinURL});
+        }
+        if(this.state.switchCUValue){
+            this.item.cards.push({display: true, name: 'custom', data: this.state.customURL});
+        }else{
+            this.item.cards.push({display: false, name: 'custom', data: this.state.customURL});
         }
 
         // save profile to storage
@@ -369,7 +390,8 @@ export default class Profile extends Component {
         let accordionList = [
             {name: 'Facebook', switchHandle: 'switchFBValue', urlHandle: "facebookURL", accordianColorHandle: "accordionFBcolor", accordianTextColorHandle: "accordionTextFBcolor", accordionOpenHandle: "accordionFBopen", placeholder:"https://www.facebook.com/USER_NAME"}, 
             {name: 'Instagram', switchHandle: 'switchINValue', urlHandle: "instagramURL",accordianColorHandle: "accordionINcolor", accordianTextColorHandle: "accordionTextINcolor", accordionOpenHandle: "accordionINopen", placeholder:"https://www.instagram.com/USER_NAME"}, 
-            {name: 'LinkedIn', switchHandle: 'switchLIValue', urlHandle: "linkedinURL",accordianColorHandle: "accordionLIcolor", accordianTextColorHandle: "accordionTextLIcolor", accordionOpenHandle: "accordionLIopen", placeholder:"https://www.linkedin.com/in/USER_ID"}
+            {name: 'LinkedIn', switchHandle: 'switchLIValue', urlHandle: "linkedinURL",accordianColorHandle: "accordionLIcolor", accordianTextColorHandle: "accordionTextLIcolor", accordionOpenHandle: "accordionLIopen", placeholder:"https://www.linkedin.com/in/USER_ID"},
+            {name: 'Custom', switchHandle: 'switchCUValue', urlHandle: "customURL",accordianColorHandle: "accordionCUcolor", accordianTextColorHandle: "accordionTextCUcolor", accordionOpenHandle: "accordionCUopen", placeholder:"https://CUSTOM_URL"}
         ];
         let accordions = [];
 
