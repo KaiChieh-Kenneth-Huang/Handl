@@ -109,7 +109,7 @@ const ProfileStackNavigator = createStackNavigator(
   },
   {
       navigationOptions:{
-            headerTitle: Profile
+            headerTitle: 'Profile',
           }
   }
 )
