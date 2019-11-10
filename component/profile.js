@@ -240,9 +240,10 @@ export default class Profile extends Component {
                  
                 // Get the user's name using Facebook's Graph API
                 const response = await fetch(`https://graph.facebook.com/me?fields=link,name&access_token=${token}`);
-                fbInfo = await response.json()
+                fbInfo = await response.json();
                 Alert.alert(`Logged in as ${fbInfo.name}!`);
-                this.setState({facebookURL:fbInfo.link})
+                this.setState({facebookURL:fbInfo.link});
+                this.setState({switchFBValue: true});
               } else {
                 // type === 'cancel'
               }
@@ -271,7 +272,8 @@ export default class Profile extends Component {
             const response = await fetch(`https://graph.facebook.com/me?fields=link&access_token=${token}`);
             fbInfo = await response.json()
             Alert.alert('Logged in!', `Hi ${fbInfo.link}!`);
-            this.setState({facebookURL:fbInfo.link})
+            this.setState({facebookURL:fbInfo.link});
+            this.setState({switchFBValue: true});
           } else {
             // type === 'cancel'
           }
@@ -458,7 +460,8 @@ export default class Profile extends Component {
         }else{
             this.state.accordionLIcolor = '#06E252'; 
         }*/
-
+        
+        // Check if there's something in the URL field and change color and state accordingly
         for(let i = 0; i < accordionList.length; i++){
             if(this.state[accordionList[i].urlHandle]==''){
                 this.state[accordionList[i].accordianColorHandle] = '#eee';
@@ -482,11 +485,11 @@ export default class Profile extends Component {
                                 this.setState({[accordionList[i].urlHandle]: URL}); 
                                 if(URL=='') {
                                     this.setState({[accordionList[i].switchHandle]: false});
-                                    this.setState({[accordionList[i].accordianColorHandle]: '#eee'}); 
+                                    //this.setState({[accordionList[i].accordianColorHandle]: '#eee'}); 
                                     
                                 }else{
                                     this.setState({[accordionList[i].switchHandle]: true});
-                                    this.setState({[accordionList[i].accordianColorHandle]: '#06E252'}); 
+                                    //this.setState({[accordionList[i].accordianColorHandle]: '#06E252'}); 
                                 }}}/>
                     </View>
                 );
