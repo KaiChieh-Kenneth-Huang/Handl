@@ -163,8 +163,8 @@ export default class Profile extends Component {
             const item = JSON.parse(retrievedItem);
             this.item = item;
         } catch (error) {
-            return;
             console.log(error.message);
+            return;
         }
 
         // populate input fields
