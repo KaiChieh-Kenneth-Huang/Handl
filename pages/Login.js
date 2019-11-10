@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 import 'firebase/firestore'
-import * as Google from 'expo-google-app-auth';
+import * as Google from 'expo-google-app-auth'
+import Divider from 'react-native-divider'
 
 // import * as MailComposer from 'expo-mail-composer';
 
@@ -15,8 +16,10 @@ import {AppRegistry,
     TouchableHighlight, 
     TouchableOpacity,
     TextInput, 
-    Button}
+    Button,
+    Image}
     from 'react-native';  
+import { Ionicons } from '@expo/vector-icons';
 
 require('console');
 
@@ -209,14 +212,14 @@ export default class Login extends Component {
             <View style={styles.container}>
                 <Text>{this.state.errorMessage}</Text>
                 <TextInput 
-                    style={styles.input}
-                    placeholder= {this.state.response}
+                    style={styles.input2}
+                    placeholder= "User Name"
                     onChangeText={email => this.setState({ email })}
                     value={this.state.email}
                 >
                 </TextInput>
                 <TextInput 
-                    style={styles.input}
+                    style={styles.input2}
                     placeholder="Password"
                     secureTextEntry={true}
                     onChangeText={password => this.setState({ password })}
@@ -229,13 +232,18 @@ export default class Login extends Component {
                     </TouchableOpacity>
                 </View>
                 <View style={styles.btnContainer}>
-                    < TouchableOpacity style={styles.userBtn}>
+                    < TouchableOpacity style={styles.userBtn2}>
                             <Text style={styles.btnText} onPress={() => this.props.navigation.navigate('Signup')}>Sign Up</Text>
                         </TouchableOpacity>
                 </View>
+
+                <Divider orientation='center'>Sign in with Google</Divider>
                 <View>
-                    < TouchableOpacity style={styles.signInWithGooglerBtn}>
-                        <Button title="Sign In With Google" onPress={() => this.signInWithGoogleAsync()}/>
+                    < TouchableOpacity style={styles.signInWithGooglerBtn} onPress={() => this.signInWithGoogleAsync()}>
+                        <Image
+                          style={styles.signInWithGooglerImg}
+                          source={require('../assets/ICONS-1/google-logo.png')}
+                        />  
                     </TouchableOpacity>
                 </View>
             </View>
@@ -258,6 +266,16 @@ const styles = StyleSheet.create({
         marginBottom: 1,
         borderRadius: 5,
         padding: 15
+        
+    },
+    input2: {
+        padding: 10,
+        fontSize: 16,
+        borderBottomWidth: 1,
+        paddingBottom: 5,
+        marginVertical: 10,
+        borderColor: '#ccc',
+        width: '80%'
     },
     welcome: {
         fontSize: 30,
@@ -275,7 +293,15 @@ const styles = StyleSheet.create({
         padding: 15,
         width: "100%",
         marginTop: 15,
-        borderRadius: 30
+        borderRadius: 30,
+    },
+    userBtn2: {
+        backgroundColor: "#5B2C6F",
+        padding: 15,
+        width: "100%",
+        marginTop: 15,
+        marginBottom: 15,
+        borderRadius: 30,
     },
     btnContainer: {
         flexDirection: "row",
@@ -292,6 +318,10 @@ const styles = StyleSheet.create({
         marginTop: 40,
         fontSize: 18,
         textAlign: "center"
+    },
+    signInWithGooglerImg: {
+        width: 50,
+        height: 50
     }
 });
 

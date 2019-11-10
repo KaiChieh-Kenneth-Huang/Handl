@@ -97,13 +97,7 @@ const HomeStackNavigator = createStackNavigator(
       HomeBottomTabNavigator: HomeBottomTabNavigator
   }
 )
-/*
-const ProfileBottomTabNavigator = createBottomTabNavigator(
-  {
-      Profile
-  }
-)
-*/
+
 const ProfileStackNavigator = createStackNavigator(
   {
     Profile: {
@@ -113,14 +107,15 @@ const ProfileStackNavigator = createStackNavigator(
           headerLeft: () => {
             return (
               <TouchableOpacity style={{padding: 20}} onPress={()=>navigation.navigate('QRcodes')}>
-                <Ionicons name="md-close" size={35} color= "#330455"/>
+                <Ionicons name="ios-close" size={45} color= "#2189D9"/>
               </TouchableOpacity>
             )
           },
           headerRight: () => {
+            s = require('./assets/md-checkmark.svg');
             return (
               <TouchableOpacity style={{paddingRight: 20}} navigation={navigation} onPress={()=> navigation.setParams({isSave: true})}>
-                <Ionicons name="md-checkmark" size={35} color= "#330455"/>
+                <Ionicons name="ios-checkmark" size={45} color= "#2189D9"/>
               </TouchableOpacity>
             )
           },
