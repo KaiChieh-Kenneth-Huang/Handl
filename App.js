@@ -102,16 +102,17 @@ const ProfileStackNavigator = createStackNavigator(
     Profile: {
       screen: Profile,
       navigationOptions: ({navigation})=> {
+        s = require('./assets/md-close.png');
         return {
           headerLeft: () => {
             return (
-              <TouchableOpacity style={{padding: 20}} onPress={()=>navigation.navigate('QRcodes')}>
-                <Ionicons name="ios-close" size={45} color= "#2189D9"/>
+              <TouchableOpacity style={{padding: 15}} onPress={()=>navigation.navigate('QRcodes')}>
+                <Image source={s} style={{ height: 35, width: 35, tintColor: "#2189D9"}}/>
+                
               </TouchableOpacity>
             )
           },
           headerRight: () => {
-            s = require('./assets/md-checkmark.svg');
             return (
               <TouchableOpacity style={{paddingRight: 20}} navigation={navigation} onPress={()=> navigation.setParams({isSave: true})}>
                 <Ionicons name="ios-checkmark" size={45} color= "#2189D9"/>
@@ -119,7 +120,7 @@ const ProfileStackNavigator = createStackNavigator(
             )
           },
           headerTitleStyle: {
-            textAlign: 'center',
+            textAlign: 'center', 
             flexGrow:1,
             alignSelf:'center',
           },
