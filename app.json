@@ -30,12 +30,11 @@
       "package": "com.handle.handle",
       "config": {
         "googleSignIn": {
-            "apiKey" : "AIzaSyC2xf7_FEwAquMs5g6GBUEu7tVE-bM2sdE",
-            "certificateHash": "43BDC32700B3A6A8BA8D5CB2C8D06271837A6FB6"
+          "apiKey": "AIzaSyC2xf7_FEwAquMs5g6GBUEu7tVE-bM2sdE",
+          "certificateHash": "43BDC32700B3A6A8BA8D5CB2C8D06271837A6FB6"
         }
       }
     },
     "description": ""
   }
 }
-
