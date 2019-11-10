@@ -135,6 +135,10 @@ export default class CardComponent extends Component {
                         textDisplay = 'My LinkedIn';
                         qrData = card.data;
                         qrIcon = require('../assets/QRicons/linkedin.png');
+                    }else if(card.name == 'custom'){
+                        textDisplay = 'My Website';
+                        qrData = card.data;
+                        qrIcon = require('../assets/QRicons/custom.png');
                     }
                     qrCards.push(
                         <View key = {i} style={styles.slide}>
@@ -144,10 +148,10 @@ export default class CardComponent extends Component {
                             <View style={styles.scrollview}>
                                 <QRCode
                                     value={qrData}
-                                    size = {SCREEN_WIDTH*0.7}
+                                    size = {SCREEN_WIDTH*0.6}
                                 />
                             </View>
-                            <TouchableOpacity   style={{width: SCREEN_WIDTH*0.2, height: SCREEN_WIDTH*0.2, marginTop: -SCREEN_WIDTH*0.08, zIndex: 2}}
+                            <TouchableOpacity   style={{elevation: 2, width: SCREEN_WIDTH*0.2, height: SCREEN_WIDTH*0.2, marginTop: -SCREEN_WIDTH*0.08, zIndex: 2}}
                                                 onPress={() => {if(card.name != 'phone') Linking.openURL(qrData);}}>
                                 <Image  source={qrIcon} 
                                         style={{width: '100%', height: '100%', zIndex: 2}}
@@ -195,14 +199,17 @@ export default class CardComponent extends Component {
 const styles = StyleSheet.create({
     scrollview: {
         backgroundColor: '#ffffff',
-        width: SCREEN_WIDTH * 0.9,
-        height: SCREEN_WIDTH * 0.9,
+        width: SCREEN_WIDTH * 0.8,
+        height: SCREEN_WIDTH * 0.8,
         alignItems: 'center',
         justifyContent: 'center',
-        marginLeft: SCREEN_WIDTH * 0.05,
-        marginRight: SCREEN_WIDTH * 0.05,
-        shadowOpacity: 0.5,
-        shadowRadius: 10
+        marginLeft: SCREEN_WIDTH * 0.1,
+        marginRight: SCREEN_WIDTH * 0.1,
+        shadowOpacity: 0.3,
+        shadowRadius: 10,
+        shadowOffset: {width: 0,height: 8},
+        borderRadius: 15,
+        elevation: 2
     },
     scroll2:{
         backgroundColor: '#5f9299',

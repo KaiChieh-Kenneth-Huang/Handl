@@ -14,7 +14,7 @@ import {AppRegistry,
     Button,
     Picker
     }from 'react-native';
-import { CheckBox } from 'react-native-elements'
+import { Icon } from 'react-native-elements'
 import { AsyncStorage, Alert } from "react-native";
 import { Ionicons} from '@expo/vector-icons';
 // import { Container, Header, Left, Body, Right, Title } from 'native-base';
@@ -22,6 +22,7 @@ import Constants from 'expo-constants';
 import firebase from 'firebase'
 import * as Facebook from 'expo-facebook';
 import * as WebBrowser from 'expo-web-browser';
+import { ScrollView } from 'react-native-gesture-handler';
 
 
 
@@ -35,15 +36,37 @@ export default class Profile extends Component {
             lastName: '',
             phoneNumber: '',
             emailAddress: '',
+
+            checked: true,
+
             facebookURL: '',
             instagramURL: '',
             linkedinURL: '',
-            checked: true,
-            switchPHValue: false,
+            customURL: '',
+
+            accordionFBopen: false,
+            accordionINopen: false,
+            accordionLIopen: false,
+            accordionCUopen: false,
+
+            accordionFBcolor: '#eee',
+            accordionINcolor: '#eee',
+            accordionLIcolor: '#eee',
+            accordionCUcolor: '#eee',
+
+            accordionTextFBcolor: '#aaa',
+            accordionTextINcolor: '#aaa',
+            accordionTextLIcolor: '#aaa',
+            accordionTextCUcolor: '#aaa',
+
+            switchPHValue: true,
             switchFBValue: false,
             switchINValue: false,
             switchLIValue: false,
-            text: ''
+            switchCUValue: false,
+
+            accordianBottomRadius: 5,
+            text: '',
         };
         this.key = 'contactData';
         this.item = {
@@ -135,11 +158,11 @@ export default class Profile extends Component {
         for (let index = 0; index < this.item.cards.length; index++) {
             const element = this.item.cards[index];
             if(element.name == 'phone'){
-                this.setState({switchPHValue: element.display});
+                /*this.setState({switchPHValue: element.display});
                 this.setState({firstName: element.data.firstName});
                 this.setState({lastName: element.data.lastName});
                 this.setState({phoneNumber: element.data.phoneNumber});
-                this.setState({emailAddress: element.data.emailAddress});
+                this.setState({emailAddress: element.data.emailAddress});*/
             }else if(element.name == 'facebook'){
                 this.setState({switchFBValue: element.display});
                 this.setState({facebookURL: element.data});
@@ -149,6 +172,9 @@ export default class Profile extends Component {
             }else if(element.name == 'linkedin'){
                 this.setState({switchLIValue: element.display});
                 this.setState({linkedinURL: element.data});
+            }else if(element.name == 'custom'){
+                this.setState({switchCUValue: element.display});
+                this.setState({customURL: element.data});
             }
         }
     }
@@ -225,11 +251,11 @@ export default class Profile extends Component {
         for (let index = 0; index < this.item.cards.length; index++) {
             const element = this.item.cards[index];
             if(element.name == 'phone'){
-                this.setState({switchPHValue: element.display});
+                /*this.setState({switchPHValue: element.display});
                 this.setState({firstName: element.data.firstName});
                 this.setState({lastName: element.data.lastName});
                 this.setState({phoneNumber: element.data.phoneNumber});
-                this.setState({emailAddress: element.data.emailAddress});
+                this.setState({emailAddress: element.data.emailAddress});*/
             }else if(element.name == 'facebook'){
                 this.setState({switchFBValue: element.display});
                 this.setState({facebookURL: element.data});
@@ -239,6 +265,9 @@ export default class Profile extends Component {
             }else if(element.name == 'linkedin'){
                 this.setState({switchLIValue: element.display});
                 this.setState({linkedinURL: element.data});
+            }else if(element.name == 'custom'){
+                this.setState({switchCUValue: element.display});
+                this.setState({customURL: element.data});
             }
         }
 
@@ -270,6 +299,10 @@ export default class Profile extends Component {
         if(this.state.linkedinURL.substring(0,4) != 'http' && this.state.switchLIValue == true){
             errMessage += "LinkedIn URL must start with https://\n";
             this.setState({switchLIValue: false});
+        }
+        if(this.state.customURL.substring(0,4) != 'http' && this.state.switchCUValue == true){
+            errMessage += "Custom URL must start with https://\n";
+            this.setState({switchCUValue: false});
         }
         if(errMessage != ''){
             Alert.alert("Profile Not Saved", errMessage);
@@ -307,6 +340,11 @@ export default class Profile extends Component {
         }else{
             this.item.cards.push({display: false, name: 'linkedin', data: this.state.linkedinURL});
         }
+        if(this.state.switchCUValue){
+            this.item.cards.push({display: true, name: 'custom', data: this.state.customURL});
+        }else{
+            this.item.cards.push({display: false, name: 'custom', data: this.state.customURL});
+        }
 
         // save profile to storage
         try {
@@ -334,12 +372,9 @@ export default class Profile extends Component {
             console.log(error);
         }
         Alert.alert("Profile saved!");
+        this.props.navigation.navigate('QRcodes');
     }
 
-    storeAndNavigate = () => {
-        this.props.navigation.navigate('QRcodes')
-        this._storeData()
-    }
     
     handleChange = key => val => {
         console.log(key)
@@ -347,20 +382,92 @@ export default class Profile extends Component {
             [key]: ~val
         })
     }
+    
 
+    /*accordianBottomRadius: 5,
+    accordianColor: '#eee'*/
     render() {
+        let accordionList = [
+            {name: 'Facebook', switchHandle: 'switchFBValue', urlHandle: "facebookURL", accordianColorHandle: "accordionFBcolor", accordianTextColorHandle: "accordionTextFBcolor", accordionOpenHandle: "accordionFBopen", placeholder:"https://www.facebook.com/USER_NAME"}, 
+            {name: 'Instagram', switchHandle: 'switchINValue', urlHandle: "instagramURL",accordianColorHandle: "accordionINcolor", accordianTextColorHandle: "accordionTextINcolor", accordionOpenHandle: "accordionINopen", placeholder:"https://www.instagram.com/USER_NAME"}, 
+            {name: 'LinkedIn', switchHandle: 'switchLIValue', urlHandle: "linkedinURL",accordianColorHandle: "accordionLIcolor", accordianTextColorHandle: "accordionTextLIcolor", accordionOpenHandle: "accordionLIopen", placeholder:"https://www.linkedin.com/in/USER_ID"},
+            {name: 'Custom', switchHandle: 'switchCUValue', urlHandle: "customURL",accordianColorHandle: "accordionCUcolor", accordianTextColorHandle: "accordionTextCUcolor", accordionOpenHandle: "accordionCUopen", placeholder:"https://CUSTOM_URL"}
+        ];
+        let accordions = [];
+
+        /*if(this.state.facebookURL==''){
+            this.state.accordionFBcolor = '#eee';
+            this.state.accordianTextColor = '#aaa';
+        }else{
+            this.state.accordionFBcolor = '#06E252';
+            this.state.accordianTextColor = '#fff';
+        }
+        if(this.state.instagramURL==''){
+            this.state.accordionINcolor = '#eee';
+        }else{
+            this.state.accordionINcolor = '#06E252'; 
+        }
+        if(this.state.linkedinURL==''){
+            this.state.accordionLIcolor = '#eee';
+        }else{
+            this.state.accordionLIcolor = '#06E252'; 
+        }*/
+
+        for(let i = 0; i < accordionList.length; i++){
+            if(this.state[accordionList[i].urlHandle]==''){
+                this.state[accordionList[i].accordianColorHandle] = '#eee';
+                this.state[accordionList[i].accordianTextColorHandle] = '#aaa';
+            }else{
+                this.state[accordionList[i].accordianColorHandle] = '#06E252';
+                this.state[accordionList[i].accordianTextColorHandle] = '#fff';
+            }
+
+            if(this.state[accordionList[i].accordionOpenHandle]){
+                accordions.push(
+                    <View key = {i}>
+                        <TouchableOpacity  style={[styles.accordion, styles.openAccordion, {backgroundColor: this.state[accordionList[i].accordianColorHandle]}]} onPress={() => this.setState({ [accordionList[i].accordionOpenHandle]: false })}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={[styles.accordionText, {color: this.state[accordionList[i].accordianTextColorHandle]}]}>{accordionList[i].name}</Text>
+                                <Icon name='chevron-up' type='font-awesome' color={this.state[accordionList[i].accordianTextColorHandle]}/>
+                            </View>
+                        </TouchableOpacity>
+                        <TextInput placeholder={accordionList[i].placeholder} value={this.state[accordionList[i].urlHandle]} style={styles.accordionInput} onChangeText={
+                            (URL) => {
+                                this.setState({[accordionList[i].urlHandle]: URL}); 
+                                if(URL=='') {
+                                    this.setState({[accordionList[i].switchHandle]: false});
+                                    this.setState({[accordionList[i].accordianColorHandle]: '#eee'}); 
+                                    
+                                }else{
+                                    this.setState({[accordionList[i].switchHandle]: true});
+                                    this.setState({[accordionList[i].accordianColorHandle]: '#06E252'}); 
+                                }}}/>
+                    </View>
+                );
+            }else{
+                    accordions.push( 
+                        <TouchableOpacity key = {i} style={[styles.accordion, styles.closeAccordion, {backgroundColor: this.state[accordionList[i].accordianColorHandle]}]} onPress={() => this.setState({ [accordionList[i].accordionOpenHandle]: true })}>
+                            <View style={{ flexDirection: 'row', justifyContent: 'space-between' }}>
+                                <Text style={[styles.accordionText, {color: this.state[accordionList[i].accordianTextColorHandle]}]}>{accordionList[i].name}</Text>
+                                <Icon name='chevron-down' type='font-awesome' color={this.state[accordionList[i].accordianTextColorHandle]}/>
+                            </View>
+                        </TouchableOpacity>
+                    );
+            }
+        }
         return (
+            <ScrollView>
             <View style={styles.container}>
+                <Text style={styles.subtitle}>Contact Information</Text>
                 <TextInput placeholder="First Name" value={this.state.firstName} style={styles.input} onChangeText={(firstName) => this.setState({firstName})}/>
                 <TextInput placeholder="Last Name" value={this.state.lastName} style={styles.input} onChangeText={(lastName) => this.setState({lastName})}/>
                 <TextInput placeholder="Phone Number" value={this.state.phoneNumber} style={styles.input} onChangeText={(phoneNumber) => this.setState({phoneNumber})}/>
                 <TextInput placeholder="Email Address" value={this.state.emailAddress} style={styles.input} onChangeText={(emailAddress) => this.setState({emailAddress})}/>
-                <View style={styles.btnContainer}>
-                    <Text>Phone</Text>
-                    <Switch onValueChange={() => this.setState({switchPHValue: !this.state.switchPHValue})} value = {this.state.switchPHValue} />
-                </View>
 
-                <TextInput placeholder="https://www.facebook.com/YOUR_ACCOUNT" value={this.state.facebookURL} style={styles.input} onChangeText={(facebookURL) => this.setState({facebookURL})}/>
+                <Text style={styles.subtitle}>Social Media</Text>
+                {accordions}
+
+                {/*
                 <View style={styles.btnContainer}>
                     <Text>Facebook</Text>
                     <Switch onValueChange = {() => 
@@ -370,7 +477,7 @@ export default class Profile extends Component {
                                 this._fbapi()
                             }
                         }
-                             
+                            
                         
                             }value = {this.state.switchFBValue} />
                 </View>
@@ -385,9 +492,9 @@ export default class Profile extends Component {
                 <View style={styles.btnContainer}>
                     <Text>LinkedIn</Text>
                     <Switch onValueChange={() => this.setState({switchLIValue: !this.state.switchLIValue})} value = {this.state.switchLIValue} />
-                </View>
+                </View>*/}
                 <View style={styles.btnContainer}>
-                    < TouchableOpacity style={styles.userBtn} onPress={ this.storeAndNavigate}>
+                    < TouchableOpacity style={styles.userBtn} onPress={ this._storeData}>
                             <Text style={styles.btnText} >Save</Text>
                     </TouchableOpacity>
                 </View>
@@ -399,8 +506,6 @@ export default class Profile extends Component {
                             this.props.navigation.navigate('Login')
                         }}
                     />
-                   
-
                 </TouchableOpacity>
                
                 
@@ -413,22 +518,62 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                 </View>*/}
             </View>
+            <View style={{height: 250}}></View>
+            </ScrollView>
         )
-    }
+    };
 }
 
 const styles = StyleSheet.create({
     container: {
+        textAlign: 'left',
         flex: 1,
+        margin: 20,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
+ 
+    },
+    subtitle: {
+        marginTop: 20,
+        fontWeight: 'bold',
+        fontSize: 18
     },
     input: {
-        padding: 10,
+        fontSize: 16,
         borderBottomWidth: 1,
+        paddingBottom: 5,
+        marginVertical: 10,
         borderColor: '#ccc',
         width: '100%'
+    },
+    accordionInput:{
+        fontSize: 16,
+        borderBottomWidth: 1,
+        borderRightWidth: 1,
+        borderLeftWidth: 1,
+        padding: 15,
+        borderColor: '#eee',
+        width: '100%'
+    },
+    accordion: {
+        borderTopLeftRadius: 5,
+        borderTopRightRadius: 5,
+        //backgroundColor: "#eee",
+        padding: 15,
+        marginTop: 20
+    },
+    openAccordion: {
+        borderBottomLeftRadius: 0,
+        borderBottomRightRadius: 0,
+    },
+    closeAccordion: {
+        borderBottomLeftRadius: 5,
+        borderBottomRightRadius: 5,
+    },
+    accordionText: {
+        fontSize: 18,
+        fontWeight: "bold",
+        textAlign: "left",
+        //color: "#aaa",
     },
     userBtn: {
         backgroundColor: "#5B2C6F",

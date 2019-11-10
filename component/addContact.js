@@ -184,7 +184,7 @@ export default class AddContact extends Component {
 
     render() {
         return (
-            <View>
+            <View style={styles.container}>
                 <TextInput placeholder="First Name" value={this.state.firstName} style={styles.input} onChangeText={(firstName) => this.setState({firstName})}/>
                 <TextInput placeholder="Last Name" value={this.state.lastName} style={styles.input} onChangeText={(lastName) => this.setState({lastName})}/>
                 <TextInput placeholder="Phone Number" value={this.state.phoneNumber} style={styles.input} onChangeText={(phoneNumber) => this.setState({phoneNumber})}/>
@@ -208,18 +208,18 @@ export default class AddContact extends Component {
 
 const styles = StyleSheet.create({
     container: {
+        textAlign: 'left',
         flex: 1,
+        margin: 20,
         backgroundColor: '#fff',
-        alignItems: 'center',
-        justifyContent: 'center'
     },
     input: {
-        padding: 10,
-        borderWidth: 1,
+        fontSize: 16,
+        borderBottomWidth: 1,
+        paddingBottom: 5,
+        marginVertical: 10,
         borderColor: '#ccc',
-        width: '100%',
-        marginBottom: 1,
-        borderRadius: 5
+        width: '100%'
     },
     userBtn: {
         backgroundColor: "#5B2C6F",
@@ -240,4 +240,4 @@ const styles = StyleSheet.create({
         textAlign: "center",
         color: 'white'
     },
-});
+}); 

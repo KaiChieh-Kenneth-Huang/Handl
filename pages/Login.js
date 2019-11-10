@@ -3,6 +3,7 @@ import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 import 'firebase/firestore'
 import * as Google from 'expo-google-app-auth';
+
 // import * as MailComposer from 'expo-mail-composer';
 
 import {AppRegistry, 
@@ -187,6 +188,7 @@ export default class Login extends Component {
           const result = await Google.logInAsync({
             androidClientId: '703833117547-b8a3cc54ttg3bvkanblkg5banfbkdd76.apps.googleusercontent.com',
             iosClientId: '703833117547-9rin8et8ailspaicg8aie5moqrjnl196.apps.googleusercontent.com',
+            androidStandaloneAppClientId: '703833117547-pn16m8l59fp3apr3nr3c9jea59d2gini.apps.googleusercontent.com',
             scopes: ['profile', 'email'],
           });
       
@@ -233,7 +235,7 @@ export default class Login extends Component {
                 </View>
                 <View>
                     < TouchableOpacity style={styles.signInWithGooglerBtn}>
-                        <Text onPress={() => this.signInWithGoogleAsync()}>Sign In With Google</Text>
+                        <Button title="Sign In With Google" onPress={() => this.signInWithGoogleAsync()}/>
                     </TouchableOpacity>
                 </View>
             </View>

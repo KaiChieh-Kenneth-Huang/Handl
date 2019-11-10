@@ -73,7 +73,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
             
             headerLeft: () => {
               s = require('./assets/ICONS-1/profile.png');
-              return (<TouchableOpacity onPress={()=>navigation.navigate('Profile')}>
+              return (<TouchableOpacity style={{padding: 10}} onPress={()=>navigation.navigate('Profile')}>
                 <Image source={s}/>
                 </TouchableOpacity> 
               )
@@ -109,7 +109,7 @@ const ProfileStackNavigator = createStackNavigator(
   },
   {
       navigationOptions:{
-            headerTitle: Profile
+            headerTitle: 'Profile',
           }
   }
 )
