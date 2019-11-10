@@ -3,7 +3,7 @@
   "expoServerPort": null,
   "packagerPort": null,
   "packagerPid": null,
-  "expoServerNgrokUrl": null,
-  "packagerNgrokUrl": null,
-  "ngrokPid": null
+  "expoServerNgrokUrl": "https://ih-5z7.that-charles.handl.exp.direct",
+  "packagerNgrokUrl": "https://packager.ih-5z7.that-charles.handl.exp.direct",
+  "ngrokPid": 5016
 }
