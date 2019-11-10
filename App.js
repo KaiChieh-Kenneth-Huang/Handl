@@ -62,7 +62,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
               return <Image source={s} style={{ height: 40, width: 40, tintColor: tintColor}}/>;
           }
         },
-      },
+      }
   },
   {
       initialRouteName: 'QRcodes',
@@ -96,23 +96,48 @@ const HomeStackNavigator = createStackNavigator(
       HomeBottomTabNavigator: HomeBottomTabNavigator
   }
 )
-
+/*
 const ProfileBottomTabNavigator = createBottomTabNavigator(
   {
       Profile
   }
 )
-
+*/
 const ProfileStackNavigator = createStackNavigator(
   {
-    Profile
-  },
-  {
-      navigationOptions:{
-            headerTitle: 'Profile',
-          }
+    Profile: {
+      screen: Profile,
+      navigationOptions: ({navigation})=> {
+        return {
+          headerLeft: () => {
+            return (
+              <TouchableOpacity style={{padding: 20}} onPress={()=>navigation.navigate('QRcodes')}>
+                <Ionicons name="md-close" size={35} color= "#330455"/>
+              </TouchableOpacity>
+            )
+          },
+          headerRight: () => {
+            return (
+              <TouchableOpacity style={{paddingRight: 20}} navigation={navigation} onPress={()=> navigation.setParams({isSave: true})}>
+                <Ionicons name="md-checkmark" size={35} color= "#330455"/>
+              </TouchableOpacity>
+            )
+          },
+          headerTitleStyle: {
+            textAlign: 'center',
+            flexGrow:1,
+            alignSelf:'center',
+          },
+          headerTitle: "Account"
+        }
+      }
+    }
   }
 )
+
+_handleFilterPress = () => {
+  // do something
+}
 
 
 
@@ -123,7 +148,9 @@ const Navigator = createSwitchNavigator(
     Home: {screen: HomeStackNavigator},
     Intro: Intro,
     Signup: Signup,
-    Profile: {screen: ProfileStackNavigator},
+    Profile: {
+      screen: ProfileStackNavigator
+    }
   },
   {
     //initialRouteName: 'Home'

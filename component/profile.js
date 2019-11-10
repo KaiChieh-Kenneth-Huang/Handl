@@ -24,8 +24,6 @@ import * as Facebook from 'expo-facebook';
 import * as WebBrowser from 'expo-web-browser';
 import { ScrollView } from 'react-native-gesture-handler';
 
-
-
 export default class Profile extends Component {
 
     constructor(props) {
@@ -66,7 +64,7 @@ export default class Profile extends Component {
             switchCUValue: false,
 
             accordianBottomRadius: 5,
-            text: '',
+            text: ''
         };
         this.key = 'contactData';
         this.item = {
@@ -86,7 +84,52 @@ export default class Profile extends Component {
             */
             };
     }
+    /*
+    static getDerivedStateFromProps(nextProps, prevState){
+        const { params: prevParams } = this.props.navigation.state;
+        const { params: nextParams } = nextProps.navigation.state;
+        
+        if(nextParams!==prevParams){
+            console.log('diff')
+       }
+       else return null;
+       
+     }*/
+   /*
+    componentDidUpdate(prevProps, prevState) {
+    if(prevState!==this.state){
+        this.props.navigation.setParams({isSave: false})
 
+        const { params: prevParams } = this.props.navigation.state;
+        const { params: nextParams } = nextProps.navigation.state;
+        console.log(this.props.navigation.state)
+        console.log(nextProps.navigation.state)
+        //Perform some operation here
+        //this._storeData
+        //this.setState({idSave: false});
+    }
+    }
+    */
+    
+
+    componentWillReceiveProps(nextProps) {
+        //
+        const { params: prevParams } = this.props.navigation.state;
+        const { params: nextParams } = nextProps.navigation.state;
+        
+        //if (this.props.navigation.state.params !== undefined){
+            if( nextParams.isSave === true) {
+                console.log('good to store')
+                // I used a simple boolean value, you can pass an object with data to save
+                //console.log("componentWillReceiveProps excecuted")
+                //this.props.navigation.setParams({isSave: false})
+                this._storeData();
+            }
+        //}
+        
+        
+      }
+ 
   /*  _downloadDataStartup = () =>{
         this._downloadData('kenneth');
     }
@@ -96,6 +139,7 @@ export default class Profile extends Component {
     componentDidMount(){
         this._loadData();
         qrCardsUpToDate = false;
+        
     }
 
     /*componentDidUpdate(){
@@ -284,6 +328,7 @@ export default class Profile extends Component {
     }
 
     _storeData = async () => {    
+        console.log('_storeData called')
         this.item.cards = [];
 
         // check url format
@@ -527,7 +572,9 @@ const styles = StyleSheet.create({
     container: {
         textAlign: 'left',
         flex: 1,
-        margin: 20,
+        marginLeft: 20,
+        marginRight: 20,
+        marginBottom: 20,
         backgroundColor: '#fff',
  
     },
