@@ -26,15 +26,16 @@ import { Ionicons} from '@expo/vector-icons'
 
 import TabBar from "./component/TabBar";
 
+const iconSize = 25;
 const HomeBottomTabNavigator = createBottomTabNavigator(
   {
       QRcodes: {
         screen: QRcodes,
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor }) => {
-              const color = focused ? '#330455' : tintColor
+              tintColor = focused ? '#330455' : tintColor
               s = require('./assets/ICONS-1/QR_white.png');
-              return <Image source={s} style={{ height: 40, width: 40, tintColor: color}}/>;
+              return <Image source={s} style={{ height: iconSize, width: iconSize, tintColor: tintColor}}/>;
           }
         },
       },
@@ -49,7 +50,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
               */
               s = require('./assets/ICONS-1/keypad.png');
               tintColor = focused ? '#330455' : tintColor
-              return <Image source={s} style={{ height: 40, width: 40, tintColor: tintColor}}/>;
+              return <Image source={s} style={{ height: iconSize, width: iconSize, tintColor: tintColor}}/>;
           }
         },
       },
@@ -59,7 +60,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
           tabBarIcon: ({ focused, tintColor }) => {
               s = require('./assets/ICONS-1/QR_scanner.png');
               tintColor = focused ? '#330455' : tintColor
-              return <Image source={s} style={{ height: 40, width: 40, tintColor: tintColor}}/>;
+              return <Image source={s} style={{ height: iconSize, width: iconSize, tintColor: tintColor}}/>;
           }
         },
       }
@@ -74,7 +75,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
             headerLeft: () => {
               s = require('./assets/ICONS-1/profile.png');
               return (<TouchableOpacity style={{padding: 10}} onPress={()=>navigation.navigate('Profile')}>
-                <Image source={s}/>
+                <Image source={s} style={{ height: iconSize, width: iconSize}}/>
                 </TouchableOpacity> 
               )
             }
