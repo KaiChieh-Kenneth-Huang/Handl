@@ -85,48 +85,16 @@ export default class Profile extends Component {
             */
             };
     }
-    /*
-    static getDerivedStateFromProps(nextProps, prevState){
-        const { params: prevParams } = this.props.navigation.state;
-        const { params: nextParams } = nextProps.navigation.state;
-        
-        if(nextParams!==prevParams){
-            console.log('diff')
-       }
-       else return null;
-       
-     }*/
-   /*
-    componentDidUpdate(prevProps, prevState) {
-    if(prevState!==this.state){
-        this.props.navigation.setParams({isSave: false})
-
-        const { params: prevParams } = this.props.navigation.state;
-        const { params: nextParams } = nextProps.navigation.state;
-        console.log(this.props.navigation.state)
-        console.log(nextProps.navigation.state)
-        //Perform some operation here
-        //this._storeData
-        //this.setState({idSave: false});
-    }
-    }
-    */
     
-
     componentWillReceiveProps(nextProps) {
         //
         const { params: prevParams } = this.props.navigation.state;
         const { params: nextParams } = nextProps.navigation.state;
         
-        //if (this.props.navigation.state.params !== undefined){
-            if( nextParams.isSave === true) {
-                console.log('good to store')
-                // I used a simple boolean value, you can pass an object with data to save
-                //console.log("componentWillReceiveProps excecuted")
-                //this.props.navigation.setParams({isSave: false})
-                this._storeData();
-            }
-        //}
+        if( nextParams.isSave === true) {
+            console.log('good to store')
+            this._storeData();
+        }
         
         
       }
@@ -545,12 +513,15 @@ export default class Profile extends Component {
                     <Text>LinkedIn</Text>
                     <Switch onValueChange={() => this.setState({switchLIValue: !this.state.switchLIValue})} value = {this.state.switchLIValue} />
                 </View>*/}
+                {
+                    /*
                 <View style={styles.btnContainer}>
                     < TouchableOpacity style={styles.userBtn} onPress={ this._storeData}>
                             <Text style={styles.btnText} >Save</Text>
                     </TouchableOpacity>
                 </View>
-                <TouchableOpacity>
+                */}
+                <TouchableOpacity style={styles.signoutBtn}>
                     <Button 
                         title="Sign out"
                         onPress={() => {
@@ -652,5 +623,7 @@ const styles = StyleSheet.create({
     statusBar: {
         backgroundColor: "#330455",
         height: Constants.statusBarHeight,
+    },signoutBtn: {
+        paddingTop: 20
     }
 });
