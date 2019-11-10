@@ -518,6 +518,7 @@ export default class Profile extends Component {
                     </TouchableOpacity>
                 </View>*/}
             </View>
+            <View style={{height: 250}}></View>
             </ScrollView>
         )
     };

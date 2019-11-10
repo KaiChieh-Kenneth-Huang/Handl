@@ -138,7 +138,7 @@ export default class CardComponent extends Component {
                     }else if(card.name == 'custom'){
                         textDisplay = 'My Website';
                         qrData = card.data;
-                        qrIcon = require('../assets/QRicons/website-icon-transparent-26.jpg');
+                        qrIcon = require('../assets/QRicons/custom.png');
                     }
                     qrCards.push(
                         <View key = {i} style={styles.slide}>
