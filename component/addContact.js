@@ -35,6 +35,7 @@ export default class AddContact extends Component {
             userFirstName: '',
             userLastName: '',
             userPhoneNumber: '',
+            userEmail: ''
         };
         this.item = {
         };
@@ -79,6 +80,7 @@ export default class AddContact extends Component {
                                 this.state.userFirstName = card.data.firstName;
                                 this.state.userLastName = card.data.lastName;
                                 this.state.userPhoneNumber = card.data.phoneNumber;
+                                this.state.userEmail = card.data.emailAddress;
                             }
                             console.log(this.state.userFirstName + this.state.userLastName + this.state.userPhoneNumber);
                         }
@@ -134,6 +136,9 @@ export default class AddContact extends Component {
     onPress = () => {
         let message = '';
         message += this.state.userFirstName + ' ' + this.state.userLastName +'\n';
+        message += this.state.userPhoneNumber +'\n';
+        message += this.state.userEmail + '\n';
+
         message += '\n' + 'sent from the Handl app'
 
 
