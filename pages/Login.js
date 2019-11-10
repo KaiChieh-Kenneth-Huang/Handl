@@ -2,7 +2,8 @@ import React, { Component } from 'react'
 import { createStackNavigator, createAppContainer } from 'react-navigation';
 import firebase from 'firebase'
 import 'firebase/firestore'
-import * as Google from 'expo-google-app-auth';
+import * as Google from 'expo-google-app-auth'
+import Divider from 'react-native-divider'
 
 // import * as MailComposer from 'expo-mail-composer';
 
@@ -15,8 +16,10 @@ import {AppRegistry,
     TouchableHighlight, 
     TouchableOpacity,
     TextInput, 
-    Button}
+    Button,
+    Image}
     from 'react-native';  
+import { Ionicons } from '@expo/vector-icons';
 
 require('console');
 
@@ -233,9 +236,14 @@ export default class Login extends Component {
                             <Text style={styles.btnText} onPress={() => this.props.navigation.navigate('Signup')}>Sign Up</Text>
                         </TouchableOpacity>
                 </View>
+
+                <Divider orientation='center'>Sign in with Google</Divider>
                 <View>
-                    < TouchableOpacity style={styles.signInWithGooglerBtn}>
-                        <Button title="Sign In With Google" onPress={() => this.signInWithGoogleAsync()}/>
+                    < TouchableOpacity style={styles.signInWithGooglerBtn} onPress={() => this.signInWithGoogleAsync()}>
+                        <Image
+                          style={styles.signInWithGooglerImg}
+                          source={require('../assets/ICONS-1/google-logo.png')}
+                        />  
                     </TouchableOpacity>
                 </View>
             </View>
@@ -292,6 +300,10 @@ const styles = StyleSheet.create({
         marginTop: 40,
         fontSize: 18,
         textAlign: "center"
+    },
+    signInWithGooglerImg: {
+        width: 50,
+        height: 50
     }
 });
 
