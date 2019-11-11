@@ -142,13 +142,14 @@ export default class CardComponent extends Component {
                     }
                     qrCards.push(
                         <View key = {i} style={styles.slide}>
-                            <Text style={{color: 'black', fontSize: 24, fontWeight: 'bold', marginBottom: 15}}>
+                            <Text style={{color: '#535353', fontSize: 24, fontWeight: 'bold', marginBottom: 15}}>
                                 {textDisplay}
                             </Text>
                             <View style={styles.scrollview}>
                                 <QRCode
                                     value={qrData}
                                     size = {SCREEN_WIDTH*0.6}
+                                    color = {'#535353'}
                                 />
                             </View>
                             <TouchableOpacity   style={{elevation: 2, width: SCREEN_WIDTH*0.2, height: SCREEN_WIDTH*0.2, marginTop: -SCREEN_WIDTH*0.08, zIndex: 2}}
