@@ -111,17 +111,17 @@ export default class AddContact extends Component {
 
 
     checkSMS = async () => {
-    const { status } = await Permissions.askAsync(Permissions.SMS);
-    if (status == 'granted'){
-        alert('Permission for SMS granted');
+        const { status } = await Permissions.askAsync(Permissions.SMS);
+        if (status == 'granted'){
+            alert('Permission for SMS granted');
+        }
+        const isAvailable = await SMS.isAvailableAsync();
+        if (isAvailable) {
+            this.state.smsAvailable = true;
+        //const { result } = await SMS.sendSMSAsync('8502287475', 'test1234');
+        }
+        console.log(isAvailable);
     }
-    const isAvailable = await SMS.isAvailableAsync();
-    if (isAvailable) {
-        this.state.smsAvailable = true;
-      //const { result } = await SMS.sendSMSAsync('8502287475', 'test1234');
-    }
-    console.log(isAvailable);
-  }
 
 
     handleChange = key => val => {
@@ -157,6 +157,7 @@ export default class AddContact extends Component {
         };
 
         try{
+            this.checkContact()
             const contactId = Contacts.addContactAsync(contact);
             console.log('contact-ID:'+contactId);
             if(contactId){
@@ -180,6 +181,13 @@ export default class AddContact extends Component {
             alert("sms available");
         } 
 
+    }
+
+    checkContact = async () => {
+        const { status } = await Permissions.askAsync(Permissions.CONTACTS);
+        if (status == 'granted'){
+            //alert('Permission for read contact granted');
+        }
     }
 
     render() {

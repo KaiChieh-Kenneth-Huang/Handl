@@ -116,7 +116,6 @@ const ProfileStackNavigator = createStackNavigator(
           headerRight: () => {
             return (
               <TouchableOpacity style={{paddingRight: 15}} navigation={navigation} onPress={()=> navigation.setParams({isSave: true})}>
-                
                 <Image source={s2} style={{ height: 35, width: 35, tintColor: "#2189D9"}}/>
               </TouchableOpacity>
             )
