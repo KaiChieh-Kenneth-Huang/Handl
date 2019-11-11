@@ -33,7 +33,12 @@
           "apiKey": "AIzaSyC2xf7_FEwAquMs5g6GBUEu7tVE-bM2sdE",
           "certificateHash": "43BDC32700B3A6A8BA8D5CB2C8D06271837A6FB6"
         }
-      }
+      },
+      "permissions": [
+        "WRITE_CONTACTS",
+        "READ_CONTACTS",
+        "CAMERA"
+      ]
     },
     "description": "Download the expo app to try Handl!\nFor Android users, scan the QR code on the right with the expo app.\nFor iOS users, scan the QR code on the right with your phone camera after downloading expo."
   }
