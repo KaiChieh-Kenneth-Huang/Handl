@@ -40,6 +40,6 @@
         "CAMERA"
       ]
     },
-    "description": "Download the expo app to try Handl!\nFor Android users, scan the QR code on the right with the expo app.\nFor iOS users, scan the QR code on the right with your phone camera after downloading expo."
+    "description": "Download the expo app to try Handl!\nFor Android users, scan the QR code on the right with the expo app.\nFor iOS users, expo no longer allow visitors to see the app. Please wait until we deploy the app for iOS."
   }
 }
