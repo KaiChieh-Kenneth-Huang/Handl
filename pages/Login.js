@@ -289,14 +289,14 @@ const styles = StyleSheet.create({
         borderRadius: 30
     },
     userBtn: {
-        backgroundColor: "#5B2C6F",
+        backgroundColor: "#FF0058",
         padding: 15,
         width: "100%",
         marginTop: 15,
         borderRadius: 30,
     },
     userBtn2: {
-        backgroundColor: "#5B2C6F",
+        backgroundColor: "#FF0058",
         padding: 15,
         width: "100%",
         marginTop: 15,

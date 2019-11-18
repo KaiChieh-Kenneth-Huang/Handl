@@ -33,7 +33,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
         screen: QRcodes,
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor }) => {
-              tintColor = focused ? '#330455' : tintColor
+              tintColor = focused ? '#FF0058' : tintColor
               s = require('./assets/ICONS-1/QR_white.png');
               return <Image source={s} style={{ height: iconSize, width: iconSize, tintColor: tintColor}}/>;
           }
@@ -45,11 +45,11 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
           tabBarIcon: ({ focused, tintColor }) => {
               /*
               const iconName = `ios-keypad${focused ? '' : ''}`;
-              tintColor = focused ? '#330455' : tintColor 
+              tintColor = focused ? '#FF0058' : tintColor 
               return <Ionicons name={iconName} size={25} color={tintColor} />;
               */
               s = require('./assets/ICONS-1/keypad.png');
-              tintColor = focused ? '#330455' : tintColor
+              tintColor = focused ? '#FF0058' : tintColor
               return <Image source={s} style={{ height: iconSize, width: iconSize, tintColor: tintColor}}/>;
           }
         },
@@ -59,7 +59,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
         navigationOptions: {
           tabBarIcon: ({ focused, tintColor }) => {
               s = require('./assets/ICONS-1/QR_scanner.png');
-              tintColor = focused ? '#330455' : tintColor
+              tintColor = focused ? '#FF0058' : tintColor
               return <Image source={s} style={{ height: iconSize, width: iconSize, tintColor: tintColor}}/>;
           }
         },
@@ -84,7 +84,7 @@ const HomeBottomTabNavigator = createBottomTabNavigator(
       tabBarOptions: { 
         style: {
           height: 55,
-          backgroundColor: '#330455',
+          backgroundColor: '#FF0058',
         },
         showLabel: false,
         activeBackgroundColor: '#FFFFFF'

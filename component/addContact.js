@@ -230,7 +230,7 @@ const styles = StyleSheet.create({
         width: '100%'
     },
     userBtn: {
-        backgroundColor: "#5B2C6F",
+        backgroundColor: "#FF0058",
         padding: 15,
         width: "100%",
         marginTop: 15,

@@ -325,7 +325,7 @@ export default class Profile extends Component {
             return;
         }
 
-        if(this.state.switchPHValue){
+        if(this.state.firstName != "" || this.state.lastName != "" || this.state.phoneNumber != "" || this.state.emailAddress != ""){
             this.item.cards.push({display: true, name:'phone', data: {
                 firstName: this.state.firstName,
                 lastName: this.state.lastName,
