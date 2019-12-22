@@ -15,6 +15,7 @@
     "expo-contacts": "~6.0.0",
     "expo-facebook": "~6.0.0",
     "expo-google-app-auth": "^7.0.0",
+    "expo-linear-gradient": "~6.0.0",
     "expo-mail-composer": "~6.0.0",
     "expo-sms": "~6.0.0",
     "firebase": "^6.5.0",
