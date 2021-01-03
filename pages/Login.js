@@ -21,7 +21,7 @@ import {AppRegistry,
     from 'react-native';  
 import { Ionicons } from '@expo/vector-icons';
 
-require('console');
+// require('console');
 
 export default class Login extends Component {
     constructor(props){
