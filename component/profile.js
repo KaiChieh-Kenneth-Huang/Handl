@@ -21,7 +21,7 @@ import { Ionicons} from '@expo/vector-icons';
 import Constants from 'expo-constants';
 import firebase from 'firebase'
 import * as Facebook from 'expo-facebook';
-import * as WebBrowser from 'expo-web-browser';
+// import * as WebBrowser from 'expo-web-browser';
 import { ScrollView } from 'react-native-gesture-handler';
 
 export default class Profile extends Component {
